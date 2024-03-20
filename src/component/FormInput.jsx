@@ -104,7 +104,9 @@ function FormInput({
             value={inputItem}
             onChange={(e) => setInputItem(e.target.value)}
           />
-          <Button onClick={(e) => onAddTask(e, newItems)}>Add Task</Button>
+          <Button onClick={(e) => onAddTask(e, newItems)} disabled={!inputItem}>
+            Add Task
+          </Button>
         </div>
       </StyledDiv>
       <StyledDiv className="task edit-task" active={!isActive}>
