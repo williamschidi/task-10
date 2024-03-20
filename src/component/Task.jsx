@@ -12,11 +12,11 @@ const Li = styled.li`
 
   @media screen and (min-width: 451px) and (max-width: 750px) {
     width: 100%;
-    padding: 0 6rem;
+    padding: 0 1rem;
     font-size: 1.6rem;
   }
   @media screen and (max-width: 450px) {
-    padding: 0 4rem;
+    padding: 0 1rem;
     font-size: 1.4rem;
   }
 `;
@@ -29,7 +29,7 @@ const StyleDiv = styled.div`
   cursor: pointer;
 
   @media screen and (max-width: 600px) {
-    gap: 0.4rem;
+    gap: 0.7rem;
   }
 `;
 const Span = styled.span`

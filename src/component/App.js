@@ -17,10 +17,15 @@ const Main = styled.main`
     gap: 3rem;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (min-width: 451px) and (max-width: 600px) {
     max-width: 50rem;
     margin: 10rem auto;
-    gap: 2rem;
+    gap: 3rem;
+  }
+
+  @media screen and (max-width: 450px) {
+    margin: 8rem auto;
+    max-width: 35rem;
   }
 `;
 
