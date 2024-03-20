@@ -34,7 +34,8 @@ const H2 = styled.h2`
 function TodoList({ todoTask, onDeleteTask, setIsActive, setEditId }) {
   return (
     <Ul>
-      <H2>Here are your todo task</H2>
+      {todoTask.length ? <H2>Here are your todo task</H2> : ''}
+
       {todoTask.map((item, ind) => (
         <Task
           item={item}
