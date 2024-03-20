@@ -6,11 +6,22 @@ import FormInput from './FormInput';
 import TodoList from './TodoList';
 
 const Main = styled.main`
-  width: 70rem;
+  max-width: 70rem;
   margin: 15rem auto;
   display: flex;
   flex-direction: column;
   gap: 5rem;
+
+  @media screen and (min-width: 601px) and (max-width: 800px) {
+    margin: 12rem auto;
+    gap: 3rem;
+  }
+
+  @media screen and (max-width: 600px) {
+    max-width: 50rem;
+    margin: 10rem auto;
+    gap: 2rem;
+  }
 `;
 
 function App() {

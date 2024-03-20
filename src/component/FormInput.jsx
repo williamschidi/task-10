@@ -8,6 +8,11 @@ const Form = styled.form`
   justify-content: flex-start;
   align-items: center;
   gap: 2rem;
+
+  @media screen and (max-width: 600px) {
+    padding: 0.7rem 1.4rem;
+    gap: 1.2rem;
+  }
 `;
 const StyledDiv = styled.div`
   display: ${(props) => (props.active ? 'flex' : 'none')};
@@ -19,6 +24,13 @@ const Label = styled.label`
   color: #fff;
   font-size: 1.8rem;
   font-weight: bold;
+
+  @media screen and (min-width: 451px) and (max-width: 600px) {
+    font-size: 1.4rem;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const Input = styled.input`
@@ -28,6 +40,18 @@ const Input = styled.input`
   outline: none;
   border: none;
   border-radius: 1rem;
+
+  @media screen and (min-width: 451px) and (max-width: 600px) {
+    width: 25rem;
+    padding: 0.5rem 1.2rem;
+    margin-right: 1.5rem;
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 20rem;
+    padding: 0.4rem 1rem;
+    margin-right: 1.2rem;
+  }
 `;
 const Button = styled.button`
   padding: 0.8rem 1.5rem;
@@ -36,12 +60,22 @@ const Button = styled.button`
   color: #212529;
   border: none;
   border-radius: 2rem;
+  font-size: 1.4rem;
   cursor: pointer;
   &:hover {
     background: #eeeaea;
   }
   &:active {
     box-shadow: inset 0 0.2rem 0.4rem rgba(0, 0, 0, 0.6);
+  }
+
+  @media screen and (max-width: 600px) {
+    font-size: 1.2rem;
+    padding: 0.5rem 1.2rem;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 1.2rem;
+    padding: 0.3rem 0.8rem;
   }
 `;
 

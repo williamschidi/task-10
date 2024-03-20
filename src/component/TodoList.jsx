@@ -8,6 +8,10 @@ const Ul = styled.ul`
   align-items: flex-start;
   justify-content: center;
   list-style: none;
+
+  @media screen and (max-width: 600px) {
+    gap: 1.5rem;
+  }
 `;
 
 const H2 = styled.h2`
@@ -17,6 +21,14 @@ const H2 = styled.h2`
   color: #fff;
   width: 100%;
   text-transform: uppercase;
+
+  @media screen and (min-width: 451px) and (max-width: 600px) {
+    font-size: 1.8rem;
+  }
+
+  @media screen and (max-width: 450px) {
+    font-size: 1.4rem;
+  }
 `;
 
 function TodoList({ todoTask, onDeleteTask, setIsActive, setEditId }) {
