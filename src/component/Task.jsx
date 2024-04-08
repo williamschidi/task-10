@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import styled from 'styled-components';
+import { deleteTask, saveEditTask } from './store';
 
 const Li = styled.li`
   width: 100%;
@@ -58,34 +61,83 @@ const Button = styled.button`
   }
 `;
 
-function Task({ item, onDeleteTask, setIsActive, setEditId }) {
-  const [isExecuted, setIsExecuted] = useState(item.isExecuted);
+function Task({ item }) {
+  const [editedText, setEditedText] = useState('');
+  const [isExecuted, setIsExecuted] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const textareaRef = useRef(null);
 
-  function handleChange() {
+  const dispatch = useDispatch();
+
+  function handleInputChange() {
     setIsExecuted((prev) => !prev);
   }
+  function handleEditChange(e) {
+    setEditedText(e.target.value);
+  }
+
+  function toggleEdit() {
+    setIsEditing(true);
+  }
+
+  function handleEdit() {
+    if (!editedText) return;
+    dispatch(saveEditTask(item.id, editedText));
+    setIsEditing(false);
+    setEditedText('');
+  }
+
+  function handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      handleEdit();
+    }
+  }
+
+  function handleDelete() {
+    dispatch(deleteTask(item.id));
+  }
+
+  useEffect(() => {
+    if (isEditing && textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, [isEditing]);
+
   return (
     <>
       <Li>
-        <StyleDiv style={{ color: 'white' }}>
-          <input type="checkbox" value={isExecuted} onChange={handleChange} />
-          <Span className={isExecuted ? 'cancelOut' : ''}>
-            {item.inputItem}
-          </Span>
-        </StyleDiv>
-        <StyleDiv style={{ color: 'white' }}>
-          <Button
-            onClick={() => {
-              setEditId(item.id);
-              setIsActive((prev) => !prev);
-            }}
-          >
-            <ion-icon name="create-outline"></ion-icon>
-          </Button>
-          <Button onClick={() => onDeleteTask(item.id)}>
-            <ion-icon name="close-outline"></ion-icon>
-          </Button>
-        </StyleDiv>
+        {isEditing ? (
+          <>
+            <textarea
+              value={editedText}
+              onChange={handleEditChange}
+              ref={textareaRef}
+              onKeyPress={(e) => handleKeyPress(e)}
+            />
+            <Button onClick={handleEdit}>Save</Button>
+          </>
+        ) : (
+          <>
+            <StyleDiv style={{ color: 'white' }}>
+              <input
+                type="checkbox"
+                value={isExecuted}
+                onChange={handleInputChange}
+              />
+              <Span className={isExecuted ? 'cancelOut' : ''}>
+                {item.inputItem}
+              </Span>
+            </StyleDiv>
+            <StyleDiv style={{ color: 'white' }}>
+              <Button onClick={toggleEdit}>
+                <ion-icon name="create-outline"></ion-icon>
+              </Button>
+              <Button onClick={handleDelete}>
+                <ion-icon name="close-outline"></ion-icon>
+              </Button>
+            </StyleDiv>
+          </>
+        )}
       </Li>
     </>
   );

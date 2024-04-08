@@ -1,4 +1,7 @@
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { addTask } from './store';
+import { useState } from 'react';
 
 const Form = styled.form`
   width: 100%;
@@ -15,7 +18,7 @@ const Form = styled.form`
   }
 `;
 const StyledDiv = styled.div`
-  display: ${(props) => (props.active ? 'flex' : 'none')};
+  display: flex;
   flex-direction: column;
   gap: 0.5rem;
 `;
@@ -79,21 +82,22 @@ const Button = styled.button`
   }
 `;
 
-function FormInput({
-  onAddTask,
-  inputItem,
-  setInputItem,
-  editValue,
-  editId,
-  setEditValue,
-  onUpdateItem,
-  isActive,
-}) {
-  const newItems = { id: Date.now(), inputItem, isExecuted: false };
+function FormInput() {
+  const [inputItem, setInputItem] = useState('');
+
+  const dispatch = useDispatch();
+
+  function handleInput(e) {
+    e.preventDefault();
+    const newItems = { id: Date.now(), inputItem, isExecuted: false };
+
+    dispatch(addTask(newItems));
+    setInputItem('');
+  }
 
   return (
     <Form>
-      <StyledDiv className="task add-task" active={isActive}>
+      <StyledDiv className="task add-task">
         <div>
           <Label>Add Task</Label>
         </div>
@@ -104,24 +108,8 @@ function FormInput({
             value={inputItem}
             onChange={(e) => setInputItem(e.target.value)}
           />
-          <Button onClick={(e) => onAddTask(e, newItems)} disabled={!inputItem}>
+          <Button onClick={(e) => handleInput(e)} disabled={!inputItem}>
             Add Task
-          </Button>
-        </div>
-      </StyledDiv>
-      <StyledDiv className="task edit-task" active={!isActive}>
-        <div>
-          <Label>Edit Task</Label>
-        </div>
-        <div>
-          <Input
-            type="text"
-            placeholder="Edit Task"
-            value={editValue}
-            onChange={(e) => setEditValue(e.target.value)}
-          />
-          <Button onClick={(e) => onUpdateItem(e, editId, editValue)}>
-            Edit Task
           </Button>
         </div>
       </StyledDiv>

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Task from './Task';
+import { useSelector } from 'react-redux';
 
 const Ul = styled.ul`
   display: flex;
@@ -31,20 +32,13 @@ const H2 = styled.h2`
   }
 `;
 
-function TodoList({ todoTask, onDeleteTask, setIsActive, setEditId }) {
+function TodoList() {
+  const todoTask = useSelector((store) => store.todoTask);
+
   return (
     <Ul>
-      {todoTask.length ? <H2>Here are your todo task</H2> : ''}
-
-      {todoTask.map((item, ind) => (
-        <Task
-          item={item}
-          key={ind}
-          onDeleteTask={onDeleteTask}
-          setIsActive={setIsActive}
-          setEditId={setEditId}
-        />
-      ))}
+      {todoTask.length > 0 && <H2>Here are your todo task</H2> &&
+        todoTask.map((item, ind) => <Task item={item} key={ind} />)}
     </Ul>
   );
 }
